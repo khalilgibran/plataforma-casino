@@ -3,7 +3,9 @@ import io from 'socket.io-client'
 import './App.css'
 
 // Conecta ao servidor Socket
-const socket = io('http://localhost:3000');
+// Conecta ao servidor NA NUVEM (Atenção: sem a barra / no final)
+const API_URL = 'https://casino-backend-w9au.onrender.com';
+const socket = io(API_URL);
 
 function App() {
   // --- ESTADOS GERAIS ---
@@ -59,7 +61,7 @@ function App() {
 
   const refreshUser = async () => {
     try {
-      const res = await fetch('http://localhost:3000/me', { headers: { 'Authorization': `Bearer ${token}` } });
+      const res = await fetch('https://casino-backend-w9au.onrender.com/login', { headers: { 'Authorization': `Bearer ${token}` } });
       if (res.ok) {
         const data = await res.json();
         setUser(data);
@@ -71,7 +73,7 @@ function App() {
 
   const checkAdmin = async () => {
     try {
-      const res = await fetch('http://localhost:3000/admin/stats', { headers: { 'Authorization': `Bearer ${token}` } });
+      const res = await fetch('https://casino-backend-w9au.onrender.com/admin/stats', { headers: { 'Authorization': `Bearer ${token}` } });
       if (res.ok) {
         setIsAdmin(true);
         setAdminStats(await res.json());
@@ -81,13 +83,13 @@ function App() {
   }
 
   const loadUserList = async () => {
-    const res = await fetch('http://localhost:3000/admin/users', { headers: { 'Authorization': `Bearer ${token}` } });
+    const res = await fetch('https://casino-backend-w9au.onrender.com/admin/users', { headers: { 'Authorization': `Bearer ${token}` } });
     if (res.ok) setUserList(await res.json());
   }
 
   const refreshHistory = async () => {
     try {
-      const res = await fetch('http://localhost:3000/my-history', { headers: { 'Authorization': `Bearer ${token}` } });
+      const res = await fetch('https://casino-backend-w9au.onrender.com/my-history', { headers: { 'Authorization': `Bearer ${token}` } });
       if (res.ok) setHistory(await res.json());
     } catch { }
   }
@@ -97,7 +99,7 @@ function App() {
   const handleAuth = async (e) => {
     e.preventDefault();
     const endpoint = isLogin ? '/login' : '/register';
-    const res = await fetch(`http://localhost:3000${endpoint}`, {
+    const res = await fetch(`https://casino-backend-w9au.onrender.com${endpoint}`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData)
     });
     const data = await res.json();
@@ -107,7 +109,7 @@ function App() {
   const giveBonus = async (userId) => {
     const amount = prompt("Valor do Bônus:");
     if (!amount) return;
-    await fetch('http://localhost:3000/admin/give-money', {
+    await fetch('https://casino-backend-w9au.onrender.com/admin/give-money', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
       body: JSON.stringify({ userId, amount })
@@ -120,7 +122,7 @@ function App() {
   const playCrash = async () => {
     setResult(null); setIsPlaying(true); setCrashDisplay(1.00);
     try {
-      const res = await fetch('http://localhost:3000/game/crash', {
+      const res = await fetch('https://casino-backend-w9au.onrender.com/game/crash', {
         method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ betAmount: Number(betAmount), autoCashout: Number(target) })
       });
@@ -151,7 +153,7 @@ function App() {
 
     setTimeout(async () => {
       try {
-        const res = await fetch('http://localhost:3000/game/coinflip', {
+        const res = await fetch('https://casino-backend-w9au.onrender.com/game/coinflip', {
           method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
           body: JSON.stringify({ betAmount: Number(betAmount), choice })
         });
