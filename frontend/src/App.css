@@ -1,0 +1,310 @@
+:root {
+  --bg-color: #0f0e17;
+  --card-bg: #232230;
+  --primary: #ff0055;
+  /* Neon Red */
+  --secondary: #00e5ff;
+  /* Neon Blue */
+  --text-main: #fffffe;
+  --text-muted: #a7a9be;
+  --success: #2cb67d;
+  --danger: #ef4565;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* Layout Principal */
+.app-container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+}
+
+/* Header / Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--card-bg);
+  padding: 15px 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  margin-bottom: 30px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 900;
+  background: linear-gradient(90deg, var(--secondary), var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -1px;
+}
+
+.user-info {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.balance-box {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  color: #ffd700;
+  font-weight: bold;
+}
+
+.btn-logout {
+  background: transparent;
+  border: 1px solid var(--danger);
+  color: var(--danger);
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-logout:hover {
+  background: var(--danger);
+  color: white;
+}
+
+/* Menu Principal */
+.game-card {
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+  border-color: #00e5ff !important;
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+}
+
+/* Área do Jogo (Crash/Coin) */
+.game-area {
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border: 1px solid #333;
+}
+
+.multiplier-display {
+  font-size: 100px;
+  font-weight: 900;
+  margin: 40px 0;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  font-variant-numeric: tabular-nums;
+}
+
+.color-green {
+  color: var(--success);
+  text-shadow: 0 0 30px rgba(44, 182, 125, 0.4);
+}
+
+.color-red {
+  color: var(--danger);
+  text-shadow: 0 0 30px rgba(239, 69, 101, 0.4);
+}
+
+.color-white {
+  color: white;
+}
+
+.color-orange {
+  color: #ff8906;
+}
+
+/* Controles de Aposta */
+.controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.input-group label {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.input-group input {
+  background: #16161a;
+  border: 1px solid #444;
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 18px;
+  outline: none;
+}
+
+.input-group input:focus {
+  border-color: var(--secondary);
+}
+
+.btn-action {
+  grid-column: span 2;
+  padding: 20px;
+  font-size: 20px;
+  font-weight: 900;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: transform 0.1s;
+}
+
+.btn-bet {
+  background: var(--success);
+  color: #0f0e17;
+  box-shadow: 0 0 20px rgba(44, 182, 125, 0.4);
+}
+
+.btn-cashing {
+  background: #555;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.btn-action:active {
+  transform: scale(0.98);
+}
+
+/* --- MOEDA 3D (CSS FÍSICA) --- */
+.coin-container {
+  perspective: 1000px;
+  width: 150px;
+  height: 150px;
+  margin: 50px auto;
+  cursor: pointer;
+}
+
+.coin {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 3s ease-out;
+}
+
+.coin-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  border: 4px solid #b8860b;
+}
+
+.heads {
+  background: radial-gradient(circle, #ffd700, #daa520);
+  color: #5a3e00;
+  transform: rotateY(0deg);
+}
+
+.tails {
+  background: radial-gradient(circle, #c0c0c0, #808080);
+  color: #333;
+  transform: rotateY(180deg);
+}
+
+.spin-heads {
+  transform: rotateY(1800deg);
+}
+
+.spin-tails {
+  transform: rotateY(1980deg);
+}
+
+/* Tabela de Histórico */
+.history-section {
+  margin-top: 40px;
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-bg);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.history-table th,
+.history-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #333;
+}
+
+.history-table th {
+  background: #16161a;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* Tela de Login */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.login-card {
+  background: var(--card-bg);
+  padding: 40px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.login-card input {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background: #16161a;
+  color: white;
+  box-sizing: border-box;
+}
+
+.login-card button {
+  width: 100%;
+  padding: 15px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}

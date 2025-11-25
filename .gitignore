@@ -1,0 +1,18 @@
+# Dependências (São baixadas automaticamente no servidor)
+node_modules/
+frontend/node_modules/
+
+# Arquivos de Sistema
+.DS_Store
+Thumbs.db
+
+# Variáveis de Ambiente (SEGURANÇA MÁXIMA)
+.env
+
+# Build final
+frontend/dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
